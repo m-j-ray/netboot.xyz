@@ -103,12 +103,19 @@ live_endpoint: https://github.com/netbootxyz
 #pipxe_source_dir: /usr/src/pipxe
 
 # Default included releases (removing default releases causes ansible to fail)
-# dict values used to set vars within boot.cfg                |  boot.cfg
-#   set {{ key }}_mirror: {{ value.mirror }}/                 |    set centos_mirror: http://mirror.centos.org/
-#   set {{ key }}_base_dir: {{ value.base_dir }}/             |    set centos_base_dir: centos/
-# dict values used to set items within {{ releases.[] }}.ipxe |  centos.ipxe
-#   item {{ item.code_name }} ${space} ${os} {{ item.name }}  |    item 8.4.2105 CentOS 8.4
-#   set os {{ releases.centos.name }}                         |    set os CentOS
+# dict values used to set vars within boot.cfg                              #boot.cfg
+#   {% for key, value in releases.items() | sort(attribute='1.name') %}
+#   {% if value.mirror is defined and value.base_dir is defined %}
+#   ### {{ value.name }}
+#   set {{ key }}_mirror {{ value.mirror }}                                 #  set centos_mirror http://mirror.centos.org
+#   set {{ key }}_base_dir {{ value.base_dir }}                             #  set centos_base_dir centos
+#   {% endif %}
+#   {% endfor %}
+# dict values used to set items within releases().ipxe                      #centos.ipxe
+#   set os {{ releases.centos.name }}                                       #  set os CentOS
+#   {% for item in releases.centos.versions %}
+#   item {{ item.code_name }} ${space} ${os} {{ item.name }}                #  item 8.4.2105 CentOS 8.4
+#   {% endfor %}
 #releases:
 #  centos:
 #    base_dir: centos
