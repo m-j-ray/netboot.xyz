@@ -103,6 +103,9 @@ live_endpoint: https://github.com/netbootxyz
 #pipxe_source_dir: /usr/src/pipxe
 
 # Default included releases (removing default releases causes ansible to fail)
+# items are used to set:
+#   {{ key }}_mirror: {{ value.mirror }}/     | http://mirror.centos.org/
+#   {{ key }}_base_dir: {{ value.base_dir }}/ | centos/  
 # releases:
 #   centos:
 #     base_dir: centos
