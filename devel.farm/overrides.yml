@@ -1,0 +1,247 @@
+---
+# overrides defaults in netbootxyz role
+
+############################
+## Not tested overrides
+#
+# Used by menu.ipxe when custom_url_menus is true
+# Location of custom ipxe menu
+#custom_url:
+#
+# Used to set serial settings within boot.cfg.j2
+#cmdline:
+#
+# Used by menu.ipxe when custom_github_menus is true
+# Points to https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom.ipxe
+#github_user:
+
+############################
+
+# Location of http(s) resources (menus,memdisk)
+boot_domain: netboot.devel.farm
+
+#boot_timeout: 300000
+
+# Menu version used when generate_version_file is true
+#boot_version: 2.x
+
+#bootloader_disks:
+#- netboot.xyz
+
+bootloader_http_enabled: true
+bootloader_https_enabled: true
+
+# Default included bootloaders
+#bootloaders:
+
+#cert_dir: /etc/netbootxyz/certs
+#cert_file_filename: ca-netboot-xyz.crt
+
+#checksums_filename: '{{ site_name }}-sha256-checksums.txt'
+
+#codesign_cert_filename: codesign.crt
+#codesign_key_filename: codesign.key
+
+# When enabled, will generate custom menus using j2 templates located at /etc/netbootxyz/custom within netboot.xyz repo
+custom_generate_menus: true
+
+# When enabled, 'Custom Github Menu' option within menu.ipxe.j2 will available the github_user var 
+custom_github_menus: true
+
+# Location of custom j2 menu templates (/etc/netbootxyz/custom)
+#custom_templates_dir: '{{ netbootxyz_conf_dir }}/custom'
+
+# Enables the custom menu item in menu.ipxe using custom_url
+custom_url_menus: true
+
+early_menu_contents: '### put early ipxe settings here'
+early_menu_enabled: false
+generate_checksums: true
+generate_disks: true
+generate_disks_arm: false
+generate_disks_efi: true
+generate_disks_hybrid: false
+generate_disks_legacy: true
+generate_disks_rpi: false
+
+# Used for adding local variables before loading the menu
+#generate_local_vars: true
+
+generate_menus: true
+
+generate_signatures: false
+
+generate_version_file: true
+
+#ipxe_branch: master
+#ipxe_ca_filename: ca-ipxe-org.crt
+#ipxe_ca_url: http://ca.ipxe.org/ca.crt
+#ipxe_debug_enabled: false
+#ipxe_debug_options: httpcore,tls
+#ipxe_repo: https://github.com/ipxe/ipxe
+#ipxe_source_dir: /usr/src/ipxe
+
+# Kernel command-line parameters used by all distributions
+kernel_params: initrd=initrd.magic ${cmdline}
+
+# Root URL path to live OS resources (kernel,initrd,vmlinuz,squashfs,memtest.img)
+live_endpoint: https://github.com/netbootxyz
+
+#memdisk_location: http://${boot_domain}/memdisk
+
+#netbootxyz_conf_dir: /etc/netbootxyz
+
+# Webserver root (build output root)
+#netbootxyz_root: /var/www/html
+
+# Location of ipxe script/menu for setting known pci ids
+#pciids_url: https://raw.githubusercontent.com/netbootxyz/pciids/master/pciids.ipxe
+
+# Raspberry Pi bootloader build options 
+#pipxe_branch: master
+#pipxe_repo: https://github.com/netbootxyz/pipxe
+#pipxe_source_dir: /usr/src/pipxe
+
+# Default included releases (removing default releases causes ansible to fail)
+# releases:
+#   centos:
+#     base_dir: centos
+#     enabled: true
+#     menu: linux
+#     mirror: http://mirror.centos.org
+#     name: CentOS
+#     versions:
+#     - code_name: 8.4.2105
+#       name: '8.4'
+#     - code_name: 8
+#       name: 8.x Latest
+#     - code_name: 8-stream
+#       name: 8.0 Stream
+#     - code_name: 7
+#       name: 7.x Latest
+#   coreos:
+#     base_dir: prod/streams
+#     enabled: true
+#     menu: linux
+#     mirror: https://builds.coreos.fedoraproject.org
+#     name: Fedora CoreOS
+#     versions:
+#     - code_name: 34.20210821.3.0
+#       name: stable
+#     - code_name: 34.20210904.2.0
+#       name: testing
+#     - code_name: 34.20210904.1.0
+#       name: next
+#   debian:
+#     archive_mirror: http://archive.debian.org
+#     base_dir: debian
+#     enabled: true
+#     menu: linux
+#     mirror: http://deb.debian.org
+#     name: Debian
+#     versions:
+#       stable:
+#       - code_name: bullseye
+#         name: 11.0 (bullseye)
+#       - code_name: buster
+#         name: 10.0 (buster)
+#       - code_name: stretch
+#         name: 9.0 (stretch)
+#       testing:
+#       - code_name: bookworm
+#         name: bookworm (testing)
+#       - code_name: sid
+#         name: sid (unstable)
+#   fedora:
+#     base_dir: fedora
+#     enabled: true
+#     menu: linux
+#     mirror: http://mirrors.kernel.org
+#     name: Fedora
+#     versions:
+#     - code_name: 34
+#       name: 34
+#     - code_name: 33
+#       name: 33
+#     - code_name: 32
+#       name: 32
+#   freebsd:
+#     enabled: true
+#     menu: bsd
+#     name: FreeBSD
+#   kali:
+#     base_dir: kali
+#     enabled: true
+#     menu: linux
+#     mirror: http://http.kali.org
+#     name: Kali Linux
+#     versions:
+#     - code_name: rolling
+#       name: Rolling Edition
+#   rhel:
+#     enabled: true
+#     menu: linux
+#     name: Red Hat Enterprise Linux
+#   rockylinux:
+#     base_dir: pub/rocky
+#     enabled: true
+#     menu: linux
+#     mirror: http://download.rockylinux.org
+#     name: Rocky Linux
+#     versions:
+#     - code_name: 8.4
+#       name: 8.4
+#   ubuntu:
+#     archive_mirror: http://old-releases.ubuntu.com
+#     base_dir: ubuntu
+#     enabled: true
+#     menu: linux
+#     mirror: http://archive.ubuntu.com
+#     name: Ubuntu
+#     versions:
+#     - code_name: hirsute
+#       name: 21.04 Hirsute Hippo
+#     - code_name: focal
+#       name: 20.04 LTS Focal Fossa (Subiquity)
+#     - code_name: focal-legacy
+#       name: 20.04 LTS Focal Fossa (Legacy)
+#     - code_name: bionic
+#       name: 18.04 LTS Bionic Beaver
+#     - code_name: xenial
+#       name: 16.04 LTS Xenial Xerus
+
+# Additional releases
+#release_overrides:
+
+#sigs_dir: '{{ netbootxyz_root }}/sigs'
+#sigs_enabled: false
+#sigs_location: http://${boot_domain}/sigs/
+#sigs_menu: false
+
+# Used to name bootloader files?
+#site_name: netboot.xyz
+site_name: devel.farm
+
+# NTP time server set by menu.ipxe
+time_server: 0.pool.ntp.org
+
+# Default included arm utilities
+#utilitiesarm:
+
+# Default included efi utilities
+#utilitiesefi:
+
+# Additional efi utilities
+#utilitiesefi_overrides:
+
+# Default included bios utilities
+#utilitiespcbios:
+
+# Additional bios utilities
+#utilitiespcbios_overrides:
+
+# Location of Windows bootloader for ipxe clients
+#wimboot_location: http://${boot_domain}/wimboot
+
+# Download location of Windows bootloader
+#wimboot_upstream_url: https://github.com/ipxe/wimboot/releases/latest/download/wimboot

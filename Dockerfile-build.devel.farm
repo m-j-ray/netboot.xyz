@@ -1,0 +1,18 @@
+FROM ghcr.io/netbootxyz/builder:latest as builder
+
+# repo for build
+COPY . /ansible
+COPY devel.farm/menus/ /etc/netbootxyz/custom/
+
+RUN \
+ echo "**** running ansible ****" && \
+ cd /ansible && \
+ ansible-playbook -i inventory site.yml --extra-vars "@devel.farm/overrides.yml" --extra-vars "@devel.farm/custom.yml"
+
+# runtime stage
+FROM alpine:latest
+
+COPY --from=builder /var/www/html/ /mnt/
+COPY docker-build-root/ /
+
+ENTRYPOINT [ "/dumper.sh" ]
