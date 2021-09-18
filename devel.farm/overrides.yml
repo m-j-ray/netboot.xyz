@@ -103,115 +103,28 @@ live_endpoint: https://github.com/netbootxyz
 #pipxe_source_dir: /usr/src/pipxe
 
 # Default included releases (removing default releases causes ansible to fail)
-# items are used to set:
-#   {{ key }}_mirror: {{ value.mirror }}/     | http://mirror.centos.org/
-#   {{ key }}_base_dir: {{ value.base_dir }}/ | centos/  
-# releases:
-#   centos:
-#     base_dir: centos
-#     enabled: true
-#     menu: linux
-#     mirror: http://mirror.centos.org
-#     name: CentOS
-#     versions:
-#     - code_name: 8.4.2105
-#       name: '8.4'
-#     - code_name: 8
-#       name: 8.x Latest
-#     - code_name: 8-stream
-#       name: 8.0 Stream
-#     - code_name: 7
-#       name: 7.x Latest
-#   coreos:
-#     base_dir: prod/streams
-#     enabled: true
-#     menu: linux
-#     mirror: https://builds.coreos.fedoraproject.org
-#     name: Fedora CoreOS
-#     versions:
-#     - code_name: 34.20210821.3.0
-#       name: stable
-#     - code_name: 34.20210904.2.0
-#       name: testing
-#     - code_name: 34.20210904.1.0
-#       name: next
-#   debian:
-#     archive_mirror: http://archive.debian.org
-#     base_dir: debian
-#     enabled: true
-#     menu: linux
-#     mirror: http://deb.debian.org
-#     name: Debian
-#     versions:
-#       stable:
-#       - code_name: bullseye
-#         name: 11.0 (bullseye)
-#       - code_name: buster
-#         name: 10.0 (buster)
-#       - code_name: stretch
-#         name: 9.0 (stretch)
-#       testing:
-#       - code_name: bookworm
-#         name: bookworm (testing)
-#       - code_name: sid
-#         name: sid (unstable)
-#   fedora:
-#     base_dir: fedora
-#     enabled: true
-#     menu: linux
-#     mirror: http://mirrors.kernel.org
-#     name: Fedora
-#     versions:
-#     - code_name: 34
-#       name: 34
-#     - code_name: 33
-#       name: 33
-#     - code_name: 32
-#       name: 32
-#   freebsd:
-#     enabled: true
-#     menu: bsd
-#     name: FreeBSD
-#   kali:
-#     base_dir: kali
-#     enabled: true
-#     menu: linux
-#     mirror: http://http.kali.org
-#     name: Kali Linux
-#     versions:
-#     - code_name: rolling
-#       name: Rolling Edition
-#   rhel:
-#     enabled: true
-#     menu: linux
-#     name: Red Hat Enterprise Linux
-#   rockylinux:
-#     base_dir: pub/rocky
-#     enabled: true
-#     menu: linux
-#     mirror: http://download.rockylinux.org
-#     name: Rocky Linux
-#     versions:
-#     - code_name: 8.4
-#       name: 8.4
-#   ubuntu:
-#     archive_mirror: http://old-releases.ubuntu.com
-#     base_dir: ubuntu
-#     enabled: true
-#     menu: linux
-#     mirror: http://archive.ubuntu.com
-#     name: Ubuntu
-#     versions:
-#     - code_name: hirsute
-#       name: 21.04 Hirsute Hippo
-#     - code_name: focal
-#       name: 20.04 LTS Focal Fossa (Subiquity)
-#     - code_name: focal-legacy
-#       name: 20.04 LTS Focal Fossa (Legacy)
-#     - code_name: bionic
-#       name: 18.04 LTS Bionic Beaver
-#     - code_name: xenial
-#       name: 16.04 LTS Xenial Xerus
+# dict values used to set vars within boot.cfg                |  boot.cfg
+#   set {{ key }}_mirror: {{ value.mirror }}/                 |    set centos_mirror: http://mirror.centos.org/
+#   set {{ key }}_base_dir: {{ value.base_dir }}/             |    set centos_base_dir: centos/
+# dict values used to set items within {{ releases.[] }}.ipxe |  centos.ipxe
+#   item {{ item.code_name }} ${space} ${os} {{ item.name }}  |    item 8.4.2105 CentOS 8.4
+#   set os {{ releases.centos.name }}                         |    set os CentOS
+#releases:
+#  centos:
+#    base_dir: centos
+#    enabled: true
+#    menu: linux
+#    mirror: http://mirror.centos.org
+#    name: CentOS
+#    versions:
+#    - code_name: 8.4.2105
+#      name: '8.4'
+#    - code_name: 8
+#      name: 8.x Latest
+#    - code_name: 8-stream
+#      name: 8.0 Stream
+#    - code_name: 7
+#      name: 7.x Latest
 
 # Additional releases
 #release_overrides:
