@@ -1,6 +1,7 @@
 # Netboot.xyz overrides for devel.farm
 
-- Role default overrides: `devel.farm/overrides.yml`
+- Required endpoint vars: `devel.farm/endpoints.yml`
+- Role default overrides: `devel.farm/user_overrides.yml`
 - Custom menu vars: `devel.farm/custom.yml`
 - Custom menu j2 templates: `devel.farm/menus`
 - Custom build Dockerfile: `Dockerfile-build.devel.farm`
