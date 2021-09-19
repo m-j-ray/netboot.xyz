@@ -7,7 +7,7 @@ COPY devel.farm/menus/ /etc/netbootxyz/custom/
 RUN \
  echo "**** running ansible ****" && \
  cd /ansible && \
- ansible-playbook -i inventory devel.farm/site.yml -e "@endpoints.yml" -e "@devel.farm/user_overrides.yml" -e "@devel.farm/custom.yml"
+ ansible-playbook -i inventory devel.farm/site.yml -e "@devel.farm/custom.yml"
 
 # runtime stage
 FROM alpine:latest

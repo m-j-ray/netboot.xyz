@@ -1,12 +1,32 @@
-# Netboot.xyz overrides for devel.farm
+# devel.farm
 
-- Role default overrides: `devel.farm/user_overrides.yml`
-- Required endpoint vars: `endpoints.yml`
-- ~~Custom endpoint vars: `devel.farm/endpoints.yml` (endpoints_overrides)~~
-    - Combine `endpoints` w/ `endpoints_overrides` or keep sperate for use in custom templates (`endpoints_custom`)?
-- Custom menu vars: `devel.farm/custom.yml`
-- Custom menu j2 templates: `devel.farm/menus`
-- Custom build Dockerfile: `Dockerfile-build.devel.farm`
+## Variables 
+
+Variable Precedence least to greatest
+
+- **Play vars_files**
+  > Set in `devel.farm/site.yml`
+  - `endpoints.yml`
+    > Required endpoint vars
+    > 
+    > Should `endpoints.yml` be included in `defaults/main.yml`?
+    >
+    > Combine `endpoints` w/ `endpoints_overrides` or keep sperate for use in custom templates only (`endpoints_custom`)?
+  - `devel.farm/user_overrides.yml`
+    > Domain specific overrides
+    >
+    > Default play uses `user_overrides.yml`
+- **Extra vars**
+  > Set in `Dockerfile-build.devel.farm`
+  - `devel.farm/custom.yml`
+    > Vars used in custom menu templates
+
+## Custom Templates
+
+- `devel.farm/menus/*.j2`
+  > Custom ipxe menu j2 templates
+  >
+  > `COPY devel.farm/menus/ /etc/netbootxyz/custom/`
 
 ## Build
 
