@@ -82,7 +82,7 @@ generate_version_file: true
 #ipxe_repo: https://github.com/ipxe/ipxe
 #ipxe_source_dir: /usr/src/ipxe
 
-# Kernel command-line parameters used by all distributions
+# Kernel parameters used by all distributions (could add os and or host specific params by adding another var)
 kernel_params: initrd=initrd.magic ${cmdline}
 
 # Root URL path to live OS resources (kernel,initrd,vmlinuz,squashfs,memtest.img)
