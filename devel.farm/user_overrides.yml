@@ -103,7 +103,7 @@ live_endpoint: https://github.com/netbootxyz
 #pipxe_repo: https://github.com/netbootxyz/pipxe
 #pipxe_source_dir: /usr/src/pipxe
 
-# Default included releases (removing default releases causes ansible to fail)
+# Default included releases (removing default releases causes ansible to fail *likely only cause default menu templates to fail)
 # dict values used to set vars within boot.cfg                              #boot.cfg
 #   {% for key, value in releases.items() | sort(attribute='1.name') %}
 #   {% if value.mirror is defined and value.base_dir is defined %}
