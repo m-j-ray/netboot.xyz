@@ -5,7 +5,7 @@
 Variable Precedence least to greatest
 
 - **Play vars_files**
-  > Set in `devel.farm/site.yml`
+  > Set in `devel.farm.yml`
   - `endpoints.yml`
     > Required endpoint vars
     > 
