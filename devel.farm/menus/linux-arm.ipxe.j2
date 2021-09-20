@@ -5,14 +5,14 @@ goto ${menu} ||
 :linux_menu
 menu Linux Installers - Current Arch [ ${arch} ]
 item --gap Popular Linux Operating Systems:
-item alpinelinux ${space} AlmaLinux
-item alpinelinux ${space} Alpine Linux
-item centos ${space} CentOS
-item debian ${space} Debian
-item gentoo ${space} Gentoo
+# item alpinelinux ${space} AlmaLinux
+# item alpinelinux ${space} Alpine Linux
+# item centos ${space} CentOS
+# item debian ${space} Debian
+# item gentoo ${space} Gentoo
 item fedora ${space} Fedora
-item rhel ${space} Red Hat Enterprise Linux
-item rockylinux ${space} Rocky Linux
+# item rhel ${space} Red Hat Enterprise Linux
+# item rockylinux ${space} Rocky Linux
 choose menu || goto linux_exit
 echo ${cls}
 goto ${menu} ||
