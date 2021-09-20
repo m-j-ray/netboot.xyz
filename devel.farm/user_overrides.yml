@@ -4,15 +4,15 @@
 ############################
 ## Not tested overrides
 #
-# Used by menu.ipxe when custom_url_menus is true
-# Location of custom ipxe menu
+# Enables custom-url item in menu.ipxe when custom_url_menus is true
+# chain ${custom_url}/custom.ipxe
 #custom_url:
 #
 # Used to set serial settings within boot.cfg.j2
 #cmdline:
 #
-# Used by menu.ipxe when custom_github_menus is true
-# Points to https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom.ipxe
+# Enables custom-github item in menu.ipxe when custom_github_menus is true
+# chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom.ipxe
 #github_user:
 
 ############################
@@ -42,7 +42,7 @@ bootloader_https_enabled: true
 #codesign_cert_filename: codesign.crt
 #codesign_key_filename: codesign.key
 
-# When enabled, will generate custom menus using j2 templates located at /etc/netbootxyz/custom within netboot.xyz repo
+# Build custom menus located in /etc/netbootxyz/custom
 custom_generate_menus: true
 
 # When enabled, 'Custom Github Menu' option within menu.ipxe.j2 will available the github_user var 
@@ -67,7 +67,8 @@ generate_disks_rpi: false
 # Used for adding local variables before loading the menu
 #generate_local_vars: true
 
-generate_menus: true
+# Build included menus
+generate_menus: false
 
 generate_signatures: false
 
