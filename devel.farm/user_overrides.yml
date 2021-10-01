@@ -17,7 +17,7 @@
 
 ############################
 
-# Location of http(s) resources (menus,memdisk)
+# Location of tftp,http(s) resources (bootloaders,menus,memdisk)
 boot_domain: netboot.devel.farm
 
 #boot_timeout: 300000
@@ -25,13 +25,25 @@ boot_domain: netboot.devel.farm
 # Menu version used when generate_version_file is true
 #boot_version: 2.x
 
-#bootloader_disks:
-#- netboot.xyz
+# List of embedded script templates used when building bootloaders
+# Later set to bootloader_file in main.yml via loop_var
+# Finally set to bootloader_filename during loop in generate_disks_base.yml via set_fact
+# rpi and hybrid disks are only generated when bootloader_filename == netboot.xyz (not sure why)
+# Bootloader builds are prefixed with bootloader_filename (bootloader_filename.efi, etc)
+bootloader_disks:
+- netboot.xyz
 
 bootloader_http_enabled: true
 bootloader_https_enabled: true
 
-# Default included bootloaders
+# Used within index.html.j2 and disks/netboot.xyz.j2, in combination with site_name to generate bootloader download links
+# Not very useful
+# index.html.j2 (clickable links)
+#   href="ipxe/{{ site_name }}{{ item.output_bin }}">{{ site_name }}{{ item.output_bin }}
+#
+# disks/netboot.xyz.j2 (check if DHCP provided filename matches)
+#   iseq ${filename} {{ site_name }}.kpxe && goto tftpmenu
+#
 #bootloaders:
 
 #cert_dir: /etc/netbootxyz/certs
