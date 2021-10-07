@@ -30,11 +30,45 @@ Variable Precedence least to greatest
 
 ## Build
 
+### Build menus
+---
+
+```
+podman build -t netboot.devel.farm.menus -f Dockerfile-build.devel.farm.menus .
+```
+
+### Build disks
+---
+
+```
+podman build -t netboot.devel.farm.disks -f Dockerfile-build.devel.farm.disks .
+```
+
+### Build all
+---
+
 ```
 podman build -t netboot.devel.farm -f Dockerfile-build.devel.farm .
 ```
 
 ## Output
+
+### Output menus
+---
+
+```
+podman run --rm -it -v $(pwd):/buildout:Z netboot.devel.farm.menus
+```
+
+### Output disks
+---
+
+```
+podman run --rm -it -v $(pwd):/buildout:Z netboot.devel.farm.disks
+```
+
+### Output all
+---
 
 ```
 podman run --rm -it -v $(pwd):/buildout:Z netboot.devel.farm

@@ -56,7 +56,7 @@ bootloader_https_enabled: true
 #codesign_key_filename: codesign.key
 
 # Build custom menus located in /etc/netbootxyz/custom
-custom_generate_menus: true
+# custom_generate_menus: true
 
 # When enabled, 'Custom Github Menu' option within menu.ipxe.j2 will available the github_user var 
 custom_github_menus: true
@@ -69,19 +69,19 @@ custom_url_menus: true
 
 early_menu_contents: '### put early ipxe settings here'
 early_menu_enabled: false
-generate_checksums: true
-generate_disks: true
+generate_checksums: false
+generate_disks: false
 generate_disks_arm: false
-generate_disks_efi: true
-generate_disks_hybrid: true
-generate_disks_legacy: true
+generate_disks_efi: false
+generate_disks_hybrid: false
+generate_disks_legacy: false
 generate_disks_rpi: false
 
 # Used for adding local variables before loading the menu
 #generate_local_vars: true
 
 # Build included menus
-generate_menus: true
+# generate_menus: true
 
 generate_signatures: false
 

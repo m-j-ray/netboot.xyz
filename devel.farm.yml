@@ -5,4 +5,3 @@
     - netbootxyz
   vars_files:
     - endpoints.yml
-    - devel.farm/user_overrides.yml
