@@ -1,0 +1,74 @@
+#!ipxe
+########## DEFAULTS ##########
+# Menu defaults
+set menu-timeout 60000
+set submenu-timeout ${menu-timeout}
+isset ${menu-default} || set menu-default exit
+
+isset ${arch} && goto skip_arch_detect ||
+cpuid --ext 29 && set arch x86_64 || set arch i386
+iseq ${buildarch} arm64 && set arch arm64 ||
+
+set space:hex 20:20
+set space ${space:string}
+
+clear custom_fedora_version
+clear sku_type
+clear ova
+set os fedora
+set os_arch ${arch}
+iseq ${os_arch} x86_64 && set os_arch x86_64 ||
+iseq ${os_arch} arm64 && set os_arch aarch64 ||
+set custom_fedora_mirror http://mirrors.kernel.org/fedora/releases
+
+menu fedora - ${os_arch}
+item --gap Releases
+item 32 ${space} fedora 32
+item 34 ${space} fedora 34
+isset ${osversion} || choose osversion 
+set ova ${os} ${osversion}
+goto product_sku
+
+:product_sku
+menu ${os} ${os_arch} sku type
+item Everything ${ova} Everything
+item Server ${ova} Server
+iseq ${os_arch} x86_64 && item Silverblue ${ova} Silverblue ||
+isset ${sku_type} || choose sku_type || goto fedora
+set custom_fedora_mirror http://mirrors.kernel.org/fedora/releases/${osversion}/${sku_type}/${os_arch}/os
+set ova ${ova} ${sku_type}
+echo ${cls}
+goto boottype
+
+:boottype
+menu ${os} ${os_arch} boot type
+item normal ${ova} graphical install
+item text ${ova} text install
+item rescue ${ova} rescue
+item kickstart ${ova} specify kickstart url
+isset ${bt} || choose bt || goto fedora
+echo ${cls}
+iseq ${bt} normal && goto boot ||
+goto ${bt}
+
+:text
+set params inst.text ||
+goto boot
+
+:rescue
+set params rescue ||
+goto boot
+
+:kickstart
+echo -n Specify kickstart URL for ${os} ${osversion}: && read ksurl
+set params ks=${ksurl} ||
+goto boot
+
+:boot
+imgfree
+kernel ${custom_fedora_mirror}/images/pxeboot/vmlinuz inst.repo=${custom_fedora_mirror} ${params} ${ipparam} {{ kernel_params }}
+initrd ${custom_fedora_mirror}/images/pxeboot/initrd.img
+echo
+echo MD5sums:
+md5sum vmlinuz initrd.img
+boot
