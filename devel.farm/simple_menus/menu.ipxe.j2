@@ -5,6 +5,8 @@ set menu-timeout 60000
 set submenu-timeout ${menu-timeout}
 isset ${menu-default} || set menu-default exit
 
+isset ${dhcp-server} && set ipparam ip=dhcp || set ipparam ip=${ip}::${gateway}:${netmask}:::none nameserver=${dns}
+set ipparam BOOTIF=${netX/mac} ${ipparam}
 isset ${arch} && goto skip_arch_detect ||
 cpuid --ext 29 && set arch x86_64 || set arch i386
 iseq ${buildarch} arm64 && set arch arm64 ||
@@ -66,9 +68,27 @@ goto boot
 
 :boot
 imgfree
-kernel ${custom_fedora_mirror}/images/pxeboot/vmlinuz inst.repo=${custom_fedora_mirror} ${params} ${ipparam} {{ kernel_params }}
+kernel ${custom_fedora_mirror}/images/pxeboot/vmlinuz inst.repo=${custom_fedora_mirror} ${params} ${ipparam} initrd=initrd.magic ${cmdline}
 initrd ${custom_fedora_mirror}/images/pxeboot/initrd.img
 echo
 echo MD5sums:
 md5sum vmlinuz initrd.img
 boot
+
+## test these
+
+
+#:boot
+#imgfree
+#kernel ${custom_fedora_mirror}/images/pxeboot/vmlinuz inst.repo=${custom_fedora_mirror}/ ip=dhcp initrd=initrd.img {{ kernel_params }}
+#initrd ${custom_fedora_mirror}/images/pxeboot/initrd.img
+#echo
+#echo MD5sums:
+#md5sum vmlinuz initrd.img
+#boot
+
+#:fedora32
+#dhcp
+#kernel ${IPXE_FEDORA_MIRROR}32/Server/x86_64/os/images/pxeboot/vmlinuz inst.repo=${IPXE_FEDORA_MIRROR}32/Server/x86_64/os/ ip=dhcp initrd=initrd.img
+#initrd ${IPXE_FEDORA_MIRROR}32/Server/x86_64/os/images/pxeboot/initrd.img
+#boot   

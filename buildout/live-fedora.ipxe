@@ -1,0 +1,105 @@
+#!ipxe
+
+isset ${dhcp-server} && set ipparam ip=dhcp || set ipparam ip=${ip}::${gateway}:${netmask}:::none nameserver=${dns}
+set ipparam BOOTIF=${netX/mac} ${ipparam}
+
+goto ${menu} ||
+
+:live_menu
+set os Fedora Live
+menu ${os}
+item --gap ${os} Versions
+item 34 ${space} ${os} 34
+item 33 ${space} ${os} 33
+item 32 ${space} ${os} 32
+choose live_version || goto live_exit
+menu ${os} ${live_version}
+item --gap ${os} Flavors
+goto ${live_version}
+
+:34
+item fedora-34-KDE ${space} Fedora 34 Kde
+item fedora-34-LXDE ${space} Fedora 34 Lxde
+item fedora-34-LXQt ${space} Fedora 34 Lxqt
+item fedora-34-MATE_Compiz ${space} Fedora 34 Mate_compiz
+item fedora-34-SoaS ${space} Fedora 34 Soas
+item fedora-34-Xfce ${space} Fedora 34 Xfce
+item fedora-34-gnome ${space} Fedora 34 Gnome
+item fedora-34-i3 ${space} Fedora 34 I3
+goto flavor_select
+:33
+item fedora-33-Cinnamon ${space} Fedora 33 Cinnamon
+item fedora-33-KDE ${space} Fedora 33 Kde
+item fedora-33-LXDE ${space} Fedora 33 Lxde
+item fedora-33-LXQt ${space} Fedora 33 Lxqt
+item fedora-33-MATE_Compiz ${space} Fedora 33 Mate_compiz
+item fedora-33-SoaS ${space} Fedora 33 Soas
+item fedora-33-Xfce ${space} Fedora 33 Xfce
+item fedora-33-gnome ${space} Fedora 33 Gnome
+goto flavor_select
+:32
+goto flavor_select
+
+:flavor_select
+choose flavor || goto live_menu
+echo ${cls}
+goto ${flavor} ||
+
+:fedora-33-Cinnamon
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-d13f4988/
+goto boot
+:fedora-33-KDE
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-8ce50c56/
+goto boot
+:fedora-33-LXDE
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-92ee4908/
+goto boot
+:fedora-33-LXQt
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-8e2a3e17/
+goto boot
+:fedora-33-MATE_Compiz
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-aafc50f3/
+goto boot
+:fedora-33-SoaS
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-9e53a1d6/
+goto boot
+:fedora-33-Xfce
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-6ca24550/
+goto boot
+:fedora-33-gnome
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-2e758900/
+goto boot
+:fedora-34-KDE
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-abf1ad7a/
+goto boot
+:fedora-34-LXDE
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-80b86a90/
+goto boot
+:fedora-34-LXQt
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-3a8ea8dd/
+goto boot
+:fedora-34-MATE_Compiz
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-0ec8ea9b/
+goto boot
+:fedora-34-SoaS
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-09eef943/
+goto boot
+:fedora-34-Xfce
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-c6f3c188/
+goto boot
+:fedora-34-gnome
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-57a6bc53/
+goto boot
+:fedora-34-i3
+set live_url ${live_endpoint}/fedora-assets/releases/download/1.2-51a02ef1/
+goto boot
+
+:boot
+imgfree
+kernel ${live_url}vmlinuz ${ipparam} root=live:${live_url}squashfs.img ro rd.live.image rd.lvm=0 rd.luks=0 rd.md=0 rd.dm=0 initrd=initrd.magic ${cmdline}
+initrd ${live_url}initrd
+boot
+
+:live_exit
+clear menu
+exit 0
